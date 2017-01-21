@@ -12,6 +12,7 @@ tmp/
 *.class
 *.war
 *.jar
+*.ear
 local.properties
 .settings/
 .loadpath
