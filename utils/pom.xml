@@ -1,27 +1,53 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  
-  <modelVersion>4.0.0</modelVersion>
-  
-  <parent>
-    <groupId>co.com.business</groupId>
-    <artifactId>business</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
-  
-  <groupId>co.com.business.utils</groupId>
-  <artifactId>utils</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
-  <name>utils</name>
-  <url>http://maven.apache.org</url>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  
-  
-  <build>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>co.com.business</groupId>
+		<artifactId>business</artifactId>
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>co.com.business.utils</groupId>
+	<artifactId>utils</artifactId>
+	<version>1.1.1-SNAPSHOT</version>
+	<name>utils</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<aspectj.version>1.7.4</aspectj.version>
+		<springframework.version>4.3.3.RELEASE</springframework.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring AOP + AspectJ -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
