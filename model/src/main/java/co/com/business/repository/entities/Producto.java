@@ -1,6 +1,7 @@
 package co.com.business.repository.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -34,7 +35,7 @@ public class Producto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_PRODUCTO")
-    private Long idProducto;
+    private BigDecimal idProducto;
     @Basic(optional = false)
     @Column(name = "CODIGO")
     private String codigo;
@@ -53,11 +54,11 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
-    public Producto(Long idProducto) {
+    public Producto(BigDecimal idProducto) {
         this.idProducto = idProducto;
     }
 
-    public Producto(Long idProducto, String codigo, String nombre, long precio, long stock) {
+    public Producto(BigDecimal idProducto, String codigo, String nombre, long precio, long stock) {
         this.idProducto = idProducto;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -65,11 +66,11 @@ public class Producto implements Serializable {
         this.stock = stock;
     }
 
-    public Long getIdProducto() {
+    public BigDecimal getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Long idProducto) {
+    public void setIdProducto(BigDecimal idProducto) {
         this.idProducto = idProducto;
     }
 

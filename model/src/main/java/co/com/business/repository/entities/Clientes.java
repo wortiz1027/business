@@ -1,6 +1,7 @@
 package co.com.business.repository.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -42,7 +43,7 @@ public class Clientes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_CLIENTE")
-    private Long idCliente;
+    private BigDecimal idCliente;
     @Basic(optional = false)
     @Column(name = "CEDULA")
     private long cedula;
@@ -71,11 +72,11 @@ public class Clientes implements Serializable {
     public Clientes() {
     }
 
-    public Clientes(Long idCliente) {
+    public Clientes(BigDecimal idCliente) {
         this.idCliente = idCliente;
     }
 
-    public Clientes(Long idCliente, long cedula, String nombre, String apellido, String email) {
+    public Clientes(BigDecimal idCliente, long cedula, String nombre, String apellido, String email) {
         this.idCliente = idCliente;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -83,11 +84,11 @@ public class Clientes implements Serializable {
         this.email = email;
     }
 
-    public Long getIdCliente() {
+    public BigDecimal getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(BigDecimal idCliente) {
         this.idCliente = idCliente;
     }
 
