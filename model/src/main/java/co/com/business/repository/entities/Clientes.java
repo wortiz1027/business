@@ -2,6 +2,7 @@ package co.com.business.repository.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -46,7 +47,7 @@ public class Clientes implements Serializable {
     private BigDecimal idCliente;
     @Basic(optional = false)
     @Column(name = "CEDULA")
-    private long cedula;
+    private BigInteger cedula;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
@@ -76,7 +77,7 @@ public class Clientes implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Clientes(BigDecimal idCliente, long cedula, String nombre, String apellido, String email) {
+    public Clientes(BigDecimal idCliente, BigInteger cedula, String nombre, String apellido, String email) {
         this.idCliente = idCliente;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -92,11 +93,11 @@ public class Clientes implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public long getCedula() {
+    public BigInteger getCedula() {
         return cedula;
     }
 
-    public void setCedula(long cedula) {
+    public void setCedula(BigInteger cedula) {
         this.cedula = cedula;
     }
 
@@ -173,7 +174,6 @@ public class Clientes implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Clientes)) {
             return false;
         }
