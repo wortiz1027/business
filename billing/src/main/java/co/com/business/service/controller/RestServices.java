@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.business.service.utils.Saludo;
+import net.bull.javamelody.MonitoredWithSpring;
 
 import org.springframework.http.HttpEntity;
 
 @RestController
 @RequestMapping(value = "/api/v1.0")
+@MonitoredWithSpring
 public class RestServices {
 	
 	private static final String TEMPLATE = "Hola, %s!";

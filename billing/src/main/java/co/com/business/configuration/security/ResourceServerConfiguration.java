@@ -12,9 +12,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import co.com.business.service.component.CustomAuthenticationEntryPoint;
 import co.com.business.service.utils.Constantes;
+import net.bull.javamelody.MonitoredWithSpring;
 
 @Configuration
 @EnableResourceServer
+@MonitoredWithSpring
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 	
 	@Autowired
@@ -43,6 +45,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
           .and() 
            .authorizeRequests()
            .antMatchers("/api/v1.0/secure").hasRole("ADMIN")
+           .antMatchers("/monitoring/**").hasRole("ADMIN")
            .antMatchers("/api/v1.0/**").authenticated()
           .and()
            .logout()

@@ -23,9 +23,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 
+import net.bull.javamelody.MonitoredWithSpring;
+
 @Configuration
 @EnableWebSecurity
 @Import({ResourceServerConfiguration.class})
+@MonitoredWithSpring
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	//@Autowired

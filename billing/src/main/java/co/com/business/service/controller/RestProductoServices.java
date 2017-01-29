@@ -18,9 +18,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import co.com.business.repository.entities.Producto;
 import co.com.business.service.dao.ProductoServicesDao;
+import net.bull.javamelody.MonitoredWithSpring;
 
 @RestController
 @RequestMapping(value = "/api/v1.0")
+@MonitoredWithSpring
 public class RestProductoServices {
 	
 	@Autowired

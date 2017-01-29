@@ -20,9 +20,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import co.com.business.repository.entities.Clientes;
 import co.com.business.service.dao.ClienteServicesDao;
 import co.com.business.utils.anotaciones.InfoLogger;
+import net.bull.javamelody.MonitoredWithSpring;
 
 @RestController
 @RequestMapping(value = "/api/v1.0")
+@MonitoredWithSpring
 public class RestClienteServices {
 	
 	@Autowired
