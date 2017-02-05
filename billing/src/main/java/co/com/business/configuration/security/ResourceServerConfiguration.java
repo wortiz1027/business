@@ -2,12 +2,13 @@ package co.com.business.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-
+import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import co.com.business.service.component.CustomAuthenticationEntryPoint;
@@ -20,14 +21,30 @@ import net.bull.javamelody.MonitoredWithSpring;
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 	
 	@Autowired
+	private Environment environtment;
+	
+	@Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 	
-	@Override
+	/*@Override
 	public void configure(ResourceServerSecurityConfigurer resources) {
 		resources
 			.resourceId(Constantes.RESOURCE_ID);
-	}
+	}*/
+	
+	@Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+		RemoteTokenServices tokenService = new RemoteTokenServices();
+        
+        tokenService.setClientId(environtment.getProperty(Constantes.CLIENT_ID_KEY));
+        tokenService.setClientSecret(environtment.getProperty(Constantes.CLIENT_SECRET_KEY));
+        tokenService.setCheckTokenEndpointUrl(environtment.getProperty(Constantes.SERVER_CHECK_TOKEN_URL_KEY));
 
+        resources
+                .resourceId(environtment.getProperty(Constantes.RESOURCE_ID_KEY))
+                .tokenServices(tokenService);
+    }
+	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http
@@ -49,7 +66,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
            .antMatchers("/api/v1.0/**").authenticated()
           .and()
            .logout()
-           .logoutUrl("/oauth/logout");
+           .logoutUrl("/oauth/logout")
+          .and()
+           .exceptionHandling()
+           .accessDeniedPage("/403");;
 	}
 
 }
