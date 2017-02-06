@@ -26,23 +26,22 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	@Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 	
-	/*@Override
-	public void configure(ResourceServerSecurityConfigurer resources) {
-		resources
-			.resourceId(Constantes.RESOURCE_ID);
-	}*/
-	
-	@Override
-    public void configure(ResourceServerSecurityConfigurer resources) {
-		RemoteTokenServices tokenService = new RemoteTokenServices();
+	@Bean
+    public RemoteTokenServices remoteTokenServices() {
+        final RemoteTokenServices tokenServices = new RemoteTokenServices();
         
         tokenService.setClientId(environtment.getProperty(Constantes.CLIENT_ID_KEY));
         tokenService.setClientSecret(environtment.getProperty(Constantes.CLIENT_SECRET_KEY));
         tokenService.setCheckTokenEndpointUrl(environtment.getProperty(Constantes.SERVER_CHECK_TOKEN_URL_KEY));
-
-        resources
-                .resourceId(environtment.getProperty(Constantes.RESOURCE_ID_KEY))
-                .tokenServices(tokenService);
+        
+        return tokenServices;
+    }
+	
+	@Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+		resources
+                .tokenServices(remoteTokenServices())
+                .resourceId(environtment.getProperty(Constantes.RESOURCE_ID_KEY));
     }
 	
 	@Override
