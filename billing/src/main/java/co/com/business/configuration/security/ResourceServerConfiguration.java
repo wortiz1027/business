@@ -1,6 +1,7 @@
 package co.com.business.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,9 +31,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public RemoteTokenServices remoteTokenServices() {
         final RemoteTokenServices tokenServices = new RemoteTokenServices();
         
-        tokenService.setClientId(environtment.getProperty(Constantes.CLIENT_ID_KEY));
-        tokenService.setClientSecret(environtment.getProperty(Constantes.CLIENT_SECRET_KEY));
-        tokenService.setCheckTokenEndpointUrl(environtment.getProperty(Constantes.SERVER_CHECK_TOKEN_URL_KEY));
+        tokenServices.setClientId(environtment.getProperty(Constantes.CLIENT_ID_KEY));
+        tokenServices.setClientSecret(environtment.getProperty(Constantes.CLIENT_SECRET_KEY));
+        tokenServices.setCheckTokenEndpointUrl(environtment.getProperty(Constantes.SERVER_CHECK_TOKEN_URL_KEY));
         
         return tokenServices;
     }

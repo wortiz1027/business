@@ -13,6 +13,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author PX60
@@ -46,6 +51,7 @@ public class Imagen implements Serializable {
     @Basic(optional = false)
     @Column(name = "IMG_TYPE")
     private String imgType;
+    @JsonIgnore
     @OneToMany(mappedBy = "idImg")
     private List<Clientes> clientesList;
 

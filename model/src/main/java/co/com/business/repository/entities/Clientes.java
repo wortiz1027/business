@@ -21,6 +21,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author PX60
@@ -64,6 +69,7 @@ public class Clientes implements Serializable {
     @Basic(optional = false)
     @Column(name = "EMAIL")
     private String email;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
     private List<Factura> facturaList;
     @JoinColumn(name = "ID_IMG", referencedColumnName = "ID_IMAGEN")
