@@ -7,14 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.com.business.repository.daos.ClienteDao;
+import co.com.business.repository.daos.FacturaDao;
 import co.com.business.repository.entities.Clientes;
 import co.com.business.service.dao.ClienteServicesDao;
+import co.com.business.viewobjects.ClienteFacturaVO;
 
 @Service("clienteServices")
 public class ClienteServicesDaoImpl implements ClienteServicesDao {
 	
 	@Autowired
 	private ClienteDao clienteDao;
+	
+	@Autowired
+	private FacturaDao facturaDao;
 	
 	@Override
 	public void createCliente(Clientes client) {
@@ -88,6 +93,22 @@ public class ClienteServicesDaoImpl implements ClienteServicesDao {
 			return clienteDao.getClientes(offset, limit);
 		}
 		
+		return null;
+	}
+	
+	@Override
+	public ClienteFacturaVO getInfoFacturasCliente(BigInteger cedula) {
+		if (cedula != null){
+			return facturaDao.getFacturasCliente(cedula);
+		}
+		return null;
+	}
+
+	@Override
+	public ClienteFacturaVO getInfoFacturaCliente(BigInteger cedula, Long numeroFactura) {
+		if (cedula != null || numeroFactura != null){
+			return facturaDao.getFacturaCliente(cedula, numeroFactura);
+		}
 		return null;
 	}
 	

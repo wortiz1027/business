@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import co.com.business.repository.entities.Clientes;
 import co.com.business.service.dao.ClienteServicesDao;
 import co.com.business.utils.anotaciones.InfoLogger;
+import co.com.business.viewobjects.ClienteFacturaVO;
 import net.bull.javamelody.MonitoredWithSpring;
 
 @RestController
@@ -154,5 +155,56 @@ public class RestClienteServices {
 		
 		return new ResponseEntity<Clientes>(client, HttpStatus.OK);
 	}
+	
+	//------------------- Get Info Facturas Cliente --------------------------------------------------------
+	
+		@RequestMapping(value    = "/clientes/{cedula}/facturas",
+				        method   = RequestMethod.GET,
+				        headers  = "Accept=application/json",
+				        consumes = MediaType.APPLICATION_JSON_VALUE, 
+				        produces = "application/json; charset=UTF-8")
+		@ResponseBody
+		public ResponseEntity<ClienteFacturaVO> infoFacturasClientes(@PathVariable("cedula") BigInteger cedula) {
+		
+			if (!clienteServicesDao.isClientExist(cedula)){
+				return new ResponseEntity<ClienteFacturaVO>(HttpStatus.NOT_FOUND);
+			}
+			
+			ClienteFacturaVO clienteFacturas = clienteServicesDao.getInfoFacturasCliente(cedula);
+			
+			if (clienteFacturas.getCedula() == null){
+				return new ResponseEntity<ClienteFacturaVO>(HttpStatus.NO_CONTENT);
+			}
+			
+			return new ResponseEntity<ClienteFacturaVO>(clienteFacturas, HttpStatus.OK);
+		}
+		
+		//------------------- Get Info Factura Cliente --------------------------------------------------------
+		
+		@RequestMapping(value    = "/clientes/{cedula}/facturas/{numerofactura}",
+				        method   = RequestMethod.GET,
+				        headers  = "Accept=application/json",
+				        consumes = MediaType.APPLICATION_JSON_VALUE, 
+				        produces = "application/json; charset=UTF-8")
+		@ResponseBody
+		public ResponseEntity<ClienteFacturaVO> infoFacturaClientes(@PathVariable("cedula") BigInteger cedula,
+				                                                    @PathVariable("numerofactura") Long numeroFactura) {
+			
+			if (cedula == null || numeroFactura == null){
+				return new ResponseEntity<ClienteFacturaVO>(HttpStatus.BAD_REQUEST);
+			}
+			
+			if (!clienteServicesDao.isClientExist(cedula)){
+				return new ResponseEntity<ClienteFacturaVO>(HttpStatus.NOT_FOUND);
+			}
+			
+			ClienteFacturaVO clienteFacturas = clienteServicesDao.getInfoFacturaCliente(cedula,numeroFactura);
+			
+			if (clienteFacturas.getCedula() == null){
+				return new ResponseEntity<ClienteFacturaVO>(HttpStatus.NO_CONTENT);
+			}
+			
+			return new ResponseEntity<ClienteFacturaVO>(clienteFacturas, HttpStatus.OK);
+		}
 	
 }

@@ -1,26 +1,24 @@
 package co.com.business.viewobjects;
 
-import java.math.BigDecimal;
-
 public class FacturasVO {
 	
-	private BigDecimal numeroFactura;
+	private Long numeroFactura;
 	private String fecha;
 	
 	public FacturasVO() {
 		
 	}
 
-	public FacturasVO(BigDecimal numeroFactura, String fecha) {
+	public FacturasVO(Long numeroFactura, String fecha) {
 		this.numeroFactura = numeroFactura;
 		this.fecha = fecha;
 	}
 
-	public BigDecimal getNumeroFactura() {
+	public Long getNumeroFactura() {
 		return numeroFactura;
 	}
 
-	public void setNumeroFactura(BigDecimal numeroFactura) {
+	public void setNumeroFactura(Long numeroFactura) {
 		this.numeroFactura = numeroFactura;
 	}
 

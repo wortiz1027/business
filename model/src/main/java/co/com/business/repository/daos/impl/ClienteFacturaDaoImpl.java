@@ -1,6 +1,5 @@
 package co.com.business.repository.daos.impl;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.business.repository.daos.FacturaDao;
+import co.com.business.utils.Util;
 import co.com.business.viewobjects.ClienteFacturaVO;
 import co.com.business.viewobjects.FacturasVO;
 
@@ -22,14 +22,15 @@ public class ClienteFacturaDaoImpl implements FacturaDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public ClienteFacturaVO getFacturaCliente(BigInteger cedula,
-											  BigDecimal numeroFactura) {
+											  Long numeroFactura) {
 		
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append("SELECT c.cedula, c.nombre, c.apellido, f.numeroFactura, to_char(f.fecha, 'dd/MM/yyyy hh:mm:ss') ");
-		sb.append("FROM Cliente c JOIN c.facturas f ");
+		sb.append("SELECT c.cedula, c.nombre, c.apellido, f.numeroFactura, f.fecha ");
+		sb.append("FROM Clientes c JOIN c.facturaList f ");
 		sb.append("WHERE c.cedula = :ipCedula ");
 		sb.append("AND   f.numeroFactura = :ipNumeroFactura");
 		
@@ -50,8 +51,8 @@ public class ClienteFacturaDaoImpl implements FacturaDao {
 			cliente.setApellido((String)obj[2]);
 			
 			FacturasVO factura = new FacturasVO();
-			factura.setNumeroFactura((BigDecimal)obj[3]);
-			factura.setFecha((String)obj[4]);
+			factura.setNumeroFactura((Long)obj[3]);
+			factura.setFecha(Util.formatDate("dd/MM/yyyy hh:mm:ss",(java.util.Date)obj[4]));
 			 
 			facturas.add(factura);
 			
@@ -62,12 +63,13 @@ public class ClienteFacturaDaoImpl implements FacturaDao {
 		return cliente;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ClienteFacturaVO getFacturasCliente(BigInteger cedula) {
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append("SELECT c.cedula, c.nombre, c.apellido, f.numeroFactura, to_char(f.fecha, 'dd/MM/yyyy hh:mm:ss') ");
-		sb.append("FROM Cliente c JOIN c.facturas f ");
+		sb.append("SELECT c.cedula, c.nombre, c.apellido, f.numeroFactura, f.fecha ");
+		sb.append("FROM Clientes c JOIN c.facturaList f ");
 		sb.append("WHERE c.cedula = :ipCedula ");
 		
 		Query<Object[]> query = getSessionFactory().getCurrentSession()
@@ -84,8 +86,8 @@ public class ClienteFacturaDaoImpl implements FacturaDao {
 			cliente.setApellido((String)obj[2]);
 			
 			FacturasVO factura = new FacturasVO();
-			factura.setNumeroFactura((BigDecimal)obj[3]);
-			factura.setFecha((String)obj[4]);
+			factura.setNumeroFactura((Long)obj[3]);
+			factura.setFecha(Util.formatDate("dd/MM/yyyy hh:mm:ss",(java.util.Date)obj[4]));
 			 
 			facturas.add(factura);
 			
@@ -103,9 +105,9 @@ public class ClienteFacturaDaoImpl implements FacturaDao {
 		sb.append("SELECT c.cedula, c.nombre, c.apellido, ");
 		sb.append("       f.numero_factura, TO_CHAR(f.fecha, 'dd/MM/yyyy hh:mm:ss'), ");
 		sb.append("       TO_CHAR(SUM(df.cantidad * df.precio),'999,999,999,999.99') ");
-		sb.append("FROM cliente c INNER JOIN factura f ON (c.id_cliente = f.id_cliente) ");
-		sb.append("               INNER JOIN detalle_factura df ON (f.numero_factura = df.numero_factura) ");
-		sb.append("               INNER JOIN producto p ON (df.id_producto = p.id_producto)");
+		sb.append("FROM Clientes c INNER JOIN c.facturaList f ON (c.id_cliente = f.id_cliente) ");
+		sb.append("                INNER JOIN f.detalleFacturaList df ON (f.numero_factura = df.numero_factura) ");
+		sb.append("                INNER JOIN df.idProducto p ON (df.id_producto = p.id_producto)");
 		sb.append("WHERE c.cedula = :ipCedula");
 		sb.append("GROUP BY c.cedula, c.nombre, c.apellido,f.numero_factura, TO_CHAR(f.fecha, 'dd/MM/yyyy hh:mm:ss');");
 		
@@ -113,13 +115,13 @@ public class ClienteFacturaDaoImpl implements FacturaDao {
 	}
 
 	@Override
-	public ClienteFacturaVO getDetalleFactura(BigInteger cedula,BigDecimal numeroFactura) {
+	public ClienteFacturaVO getDetalleFactura(BigInteger cedula, Long numeroFactura) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT c.cedula, c.nombre, c.apellido, ");
 		sb.append("       f.numeroFactura, to_char(f.fecha, 'dd/MM/yyyy hh:mm:ss'), ");
 		sb.append("       p.codigo, p.nombre, df.cantidad, df.precio, to_char(df.cantidad * df.precio, '999,999,999,999.99')");
-		sb.append("FROM Cliente c JOIN c.facturas f ");
-		sb.append("               JOIN f.detalleFacturas df");
+		sb.append("FROM Clientes c JOIN c.facturaList f ");
+		sb.append("               JOIN f.detalleFacturaList df");
 		sb.append("               JOIN df.producto p");
 		sb.append("WHERE c.cedula = :ipCedula");
 		sb.append("AND   f.numeroFactura = :ipNumeroFactura");
@@ -132,8 +134,8 @@ public class ClienteFacturaDaoImpl implements FacturaDao {
 		sb.append("SELECT c.cedula, c.nombre, c.apellido, ");
 		sb.append("       f.numeroFactura, to_char(f.fecha, 'dd/MM/yyyy hh:mm:ss'), ");
 		sb.append("       to_char(SUM(df.cantidad * df.precio), '999,999,999,999.99') ");
-		sb.append("FROM Clientes c JOIN c.facturas f ");
-		sb.append("                JOIN f.detalleFacturas df ");
+		sb.append("FROM Clientes c JOIN c.facturaList f ");
+		sb.append("                JOIN f.detalleFacturaList df ");
 		sb.append("                JOIN df.producto p ");
 		sb.append("WHERE c.cedula = :ipCedula");
 		sb.append("GROUP BY c.cedula, c.nombre, c.apellido, ");

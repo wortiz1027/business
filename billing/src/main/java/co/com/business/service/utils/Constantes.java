@@ -10,4 +10,32 @@ public class Constantes {
 	public static final String MSG_ERROR_CLIENTE_NO_REGISTRADO = "El cliente '%s' no está registrado";
 	public static final String MSG_ERROR_USUARIO_NO_REGISTRADO = "El usuario '%s' no está registrado";
 	
+	public static final String FILE_FOLDER = "C:\\software\\files\\"; 
+	public static final int MAX_UPLOAD_SIZE = 5 * 1024 * 1024; // 5MB
+    
+	public static final String DATE_FILE = "dd/MM/yyyy hh:mm:ss.sss";
+	public static final String FORMAT_DATE_FILE = "ddMMyyyy_hhmmss";
+	public static final String DEFAULT_ENCODING = "UTF-8";
+	
+	public static final String[] CONTENT_TYPES = new String[] {
+		"application/pdf",
+		"application/doc",			
+		"application/msword",
+		"application/rtf",			
+		"text/richtext" , 
+		"text/rtf" , 
+		"text/plain" , 
+		"application/vnd.openxmlformats-officedocument.wordprocessingml.document" , 
+		"application/vnd.sun.xml.writer" ,
+		"application/x-soffice" ,
+		};
+
+	public static final String[] EXTENSIONS = new String[] {
+		"doc",
+		"pdf",
+		"docx",
+		"rtf",	
+		"txt",	
+	};
+	
 }
