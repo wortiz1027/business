@@ -28,8 +28,10 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"co.com.business.*"})
-@PropertySource(value = {"classpath:jdbc.properties"})
-@PropertySource(value = {"classpath:oauth2.properties"})
+@PropertySource(value = {"classpath:jdbc.properties",
+						 "classpath:oauth2.properties",
+						 "classpath:application.properties",
+						 "classpath:i18n/messages.properties"})
 @EnableAspectJAutoProxy
 @ImportResource("classpath:net/bull/javamelody/monitoring-spring-aspectj.xml")
 @MonitoredWithSpring

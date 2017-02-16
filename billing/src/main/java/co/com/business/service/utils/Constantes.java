@@ -7,6 +7,9 @@ public class Constantes {
 	public static final String CLIENT_SECRET_KEY = "oauth2.client_secret";
 	public static final String SERVER_CHECK_TOKEN_URL_KEY = "oauth2.server_check_token_url";
 	
+	public static final String BASE_MESSAGES_KEY = "message.source.basename";
+	public static final String ERROR_CLIENT_NOT_FOUND_KEY = "error.client.not.found";
+	
 	public static final String MSG_ERROR_CLIENTE_NO_REGISTRADO = "El cliente '%s' no está registrado";
 	public static final String MSG_ERROR_USUARIO_NO_REGISTRADO = "El usuario '%s' no está registrado";
 	
