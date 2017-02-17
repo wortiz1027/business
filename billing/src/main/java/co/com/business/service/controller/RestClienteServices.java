@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import co.com.business.repository.entities.Clientes;
 import co.com.business.service.dao.ClienteServicesDao;
+import co.com.business.service.exceptions.ClienteNotFoundException;
 import co.com.business.utils.anotaciones.InfoLogger;
 import co.com.business.viewobjects.ClienteFacturaVO;
 import net.bull.javamelody.MonitoredWithSpring;
@@ -88,7 +89,7 @@ public class RestClienteServices {
 		Clientes cliente = clienteServicesDao.getInfoCliente(cedula);
 		
 		if (cliente == null){
-			return new ResponseEntity<Clientes>(HttpStatus.NOT_FOUND);
+			throw new ClienteNotFoundException(cedula);
 		}
 		
 		return new ResponseEntity<Clientes>(cliente, HttpStatus.OK);

@@ -33,7 +33,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         
         tokenServices.setClientId(environtment.getProperty(Constantes.CLIENT_ID_KEY));
         tokenServices.setClientSecret(environtment.getProperty(Constantes.CLIENT_SECRET_KEY));
-        tokenServices.setCheckTokenEndpointUrl(environtment.getProperty(Constantes.SERVER_CHECK_TOKEN_URL_KEY));
+        tokenServices.setCheckTokenEndpointUrl(environtment.getProperty(Constantes.SERVER_CHECK_TOKEN_URL_SSL_KEY));
         
         return tokenServices;
     }

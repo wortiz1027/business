@@ -52,7 +52,7 @@ public class RestUploadFile {
 			fileInfo.setContentType(file.getContentType());
 			
 			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(
-																				new File(Constantes.FILE_FOLDER + name )));
+																				new File(Constantes.WINDOWS_FILE_FOLDER + name )));
 			stream.write(bytes);
 			stream.close();
 			
@@ -95,7 +95,7 @@ public class RestUploadFile {
 				
 				byte[] bytes = files[i].getBytes();
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(
-																					new File(Constantes.FILE_FOLDER + fileName)));
+																					new File(Constantes.WINDOWS_FILE_FOLDER + fileName)));
 				
 				stream.write(bytes);
 				stream.close();

@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
 		
 		String errorMessage = localizeErrorMessage(Constantes.ERROR_CLIENT_NOT_FOUND_KEY);
 		
-		errorMessage += exception.getCedula();
+		errorMessage = String.format(errorMessage, exception.getCedula()) ;
 		String errorURL = request.getRequestURL().toString();
 		
 		return new ErrorInfo(errorURL, errorMessage);

@@ -17,6 +17,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import co.com.business.service.utils.Constantes;
 import co.com.business.utils.aspectos.LogginAspect;
 import net.bull.javamelody.MonitoredWithSpring;
 
@@ -40,22 +41,10 @@ public class ApplicationContext {
 	@Autowired
 	private Environment env;
 	
-	/*@Bean
-	public DataSource dataSourceLocal() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		
-		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-		dataSource.setUrl(env.getProperty("jdbc.url"));
-		dataSource.setUsername(env.getProperty("jdbc.user"));
-		dataSource.setPassword(env.getProperty("jdbc.password"));
-		
-		return dataSource;
-	}*/
-	
 	@Bean
 	@MonitoredWithSpring
 	public DataSource dataSourceJndi() throws NamingException {
-        return (DataSource) new JndiTemplate().lookup(env.getProperty("jndi.datasource"));
+        return (DataSource) new JndiTemplate().lookup(env.getProperty(Constantes.JNDI_DATASOURCE_KEY));
     }
 	
 	@Bean
